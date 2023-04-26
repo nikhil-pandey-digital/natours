@@ -6556,42 +6556,46 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.displayMap = void 0;
 
-/* eslint-disable */
+/* eslint-disable*/
 var displayMap = function displayMap(locations) {
-  mapboxgl.accessToken = 'pk.eyJ1Ijoiam9uYXNzY2htZWR0bWFubiIsImEiOiJjam54ZmM5N3gwNjAzM3dtZDNxYTVlMnd2In0.ytpI7V7w7cyT1Kq5rT9Z1A';
-  var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/jonasschmedtmann/cjvi9q8jd04mi1cpgmg7ev3dy',
-    scrollZoom: false // center: [-118.113491, 34.111745],
-    // zoom: 10,
-    // interactive: false
+  // Create the map and attach it to the #map
+  var map = L.map('map', {
+    zoomControl: false
+  }); // Add a tile layer to add to our map
 
-  });
-  var bounds = new mapboxgl.LngLatBounds();
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map); // Create icon using the image provided by Jonas
+
+  var greenIcon = L.icon({
+    iconUrl: '/img/pin.png',
+    iconSize: [32, 40],
+    // size of the icon
+    iconAnchor: [16, 45],
+    // point of the icon which will correspond to marker's location
+    popupAnchor: [0, -50] // point from which the popup should open relative to the iconAnchor
+
+  }); // Add locations to the map
+
+  var points = [];
   locations.forEach(function (loc) {
-    // Create marker
-    var el = document.createElement('div');
-    el.className = 'marker'; // Add marker
+    // Create points
+    points.push([loc.coordinates[1], loc.coordinates[0]]); // Add markers
 
-    new mapboxgl.Marker({
-      element: el,
-      anchor: 'bottom'
-    }).setLngLat(loc.coordinates).addTo(map); // Add popup
+    L.marker([loc.coordinates[1], loc.coordinates[0]], {
+      icon: greenIcon
+    }).addTo(map) // Add popup
+    .bindPopup("<p>Day ".concat(loc.day, ": ").concat(loc.description, "</p>"), {
+      autoClose: false,
+      className: 'mapPopup'
+    }).openPopup();
+  }); // Set map bounds to include current location
 
-    new mapboxgl.Popup({
-      offset: 30
-    }).setLngLat(loc.coordinates).setHTML("<p>Day ".concat(loc.day, ": ").concat(loc.description, "</p>")).addTo(map); // Extend map bounds to include current location
+  var bounds = L.latLngBounds(points).pad(0.5);
+  map.fitBounds(bounds); // Disable scroll on map
 
-    bounds.extend(loc.coordinates);
-  });
-  map.fitBounds(bounds, {
-    padding: {
-      top: 200,
-      bottom: 150,
-      left: 100,
-      right: 100
-    }
-  });
+  map.scrollWheelZoom.disable();
 };
 
 exports.displayMap = displayMap;
@@ -8814,7 +8818,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62484" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62979" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
