@@ -140,7 +140,7 @@ exports.isLoggedIn = async (req, res, next) => {
       }
 
       // THERE IS A LOGGED IN USER
-      res.locals.user = currentUser;
+      res.locals.user = currentUser; //pug templates will get access to user
       return next();
     } catch (err) {
       return next();
