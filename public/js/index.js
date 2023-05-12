@@ -37,7 +37,6 @@ if (userDataForm)
     form.append('email', document.getElementById('email').value);
     form.append('photo', document.getElementById('photo').files[0]);
 
-    console.log(form);
     updateSettings(form, 'data');
   });
 
@@ -63,7 +62,7 @@ if (userPasswordForm)
 if (TourbookBtn) {
   TourbookBtn.addEventListener('click', async e => {
     e.target.textContent = 'processing...';
-    const {tourId} = e.target.dataset;
+    const { tourId } = e.target.dataset;
     await bookTour(tourId);
   });
 }
