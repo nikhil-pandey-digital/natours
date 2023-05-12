@@ -33,7 +33,7 @@ if (loginForm)
   });
 
 if (signupForm) {
-  console.log('inside signup form handler');
+  
 
   signupForm.addEventListener('submit', e => {
     e.preventDefault();
