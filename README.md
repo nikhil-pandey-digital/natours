@@ -3,7 +3,7 @@
 Natours is an modern web application that provides a platform for nature lovers and adventure travelers to buy and sell nature-based adventure tours.  Natours makes it easy to browse, book, and manage tours with ease. The application allows users to create accounts, login, and sign up for tours, make secure payments, upload files, and change passwords. Natours is the ultimate destination for those seeking exciting and unforgettable outdoor experiences.
 ## Deployed links
 
-[natours deploy1](https://natours-adventourous-tours.up.railway.app/)     [natours deploy2](https://naturetours-zckq.onrender.com/)
+[live project](https://naturetours-zckq.onrender.com/)
 
 
 ## Technologies and Features
