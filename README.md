@@ -9,25 +9,28 @@ Natours is an modern web application that provides a platform for nature lovers 
 ## Technologies and Features
 <br>
 
-| Technology | Features |
+| Features | Technology |
 |------------|----------|
-| Node.js, Express.js    |  Backend of the application  |   
-|    MongoDB Atlas, Mongoose    | Database for the application
-| Stripe     |   Online Payment Page     |     
-| Bcrypt     |    Password Management      |   
-| JSON Web Token     |    Authorization and Authentication |     |   Pug      |  Server Side Rendering |
-|   sendInBlue      |  Mail Services |
-|   Leaflet      |  Map Services |
-| Render     |     Deployment 1     |   
-| railway     |     Deployment 2     | 
-<br>
-This project has variety of advanced features: 
-
-1) Fast, feature-rich REST API (includes filters, sorts, pagination, and much more)
-2) Security Features such as Rate Limiting, Password Encryption, etc.
+|   Backend Server |   Node.js, Express.js  |   
+|    Database  |  MongoDB Atlas, Mongoose  |
+| Online Payments      |    Stripe  | 
+|     Mail Services  |   sendInBlue  |
+|    Map  | Leaflet      |
+|     Password Management  |     Bcrypt    |   
+|  Authorization and Authentication   |  JSON Web Token    | 
+|    Server Side Rendering    |  Pug  |
+|   Deployment 1     |     Render  |   
+|    Deployment 2   |    railway     | 
 <br>
 
-<table>
+### Advanced features: 
+
+1) Fast, feature-rich REST APIs including filtering, sorting, pagination, Statistical Data etc.
+2) Security Features such as Rate Limiting (for preventing DDOS Attacks), Password Encryption, prevention from NoSql Attacks   etc.
+<br>
+
+<!--
+  <table>
   <tr>
     <td>Home page of the website</td>
     <td>Login Page</td>
@@ -84,6 +87,8 @@ This project has variety of advanced features:
 <td><img src="https://i.ibb.co/XjvTg7V/screely-1677926517753.png" alt="screely-1677926517753" border="0"></td>
   </tr>
 </table>
+
+-->
 
 ## Installation
 
