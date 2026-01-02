@@ -17,7 +17,7 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
-
+const bookingController = require('./controllers/bookingController');
 const app = express();
 
 app.set('view engine', 'pug');
@@ -28,12 +28,42 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set security HTTP headers
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        frameSrc: ["'self'", "'unsafe-inline'", 'https://js.stripe.com'],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          'https://js.stripe.com',
+          'https://unpkg.com'
+        ],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          'https://fonts.googleapis.com',
+          'https://unpkg.com'
+        ],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
+        imgSrc: ["'self'", 'data:', 'https://tile.openstreetmap.org'],
+        connectSrc: ["'self'", 'https://*.stripe.com', 'https://unpkg.com']
+      }
+    }
+  })
+);
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout
+);
 
 // Limit requests from same API
 const limiter = rateLimit({
@@ -83,6 +113,9 @@ app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
+
+app.get('*.map', (req, res) => res.status(204).end());
+app.get('/.well-known/*', (req, res) => res.status(204).end());
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

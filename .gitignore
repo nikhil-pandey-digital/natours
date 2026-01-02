@@ -2,3 +2,4 @@ config.env
 node_modules/
 .cache/
 dev-data/
+public/js/bundled/
