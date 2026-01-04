@@ -1,5 +1,6 @@
 config.env
 node_modules/
+.parcel-cache/
 .cache/
 dev-data/
 public/js/bundled/

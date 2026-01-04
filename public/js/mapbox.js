@@ -2,7 +2,7 @@
 export const displayMap = locations => {
   // Create the map and attach it to the #map
 
-  var map = L.map('map', { zoomControl: false });
+  var map = L.map('map', { zoomControl: true });
 
   // Add a tile layer to add to our map
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {

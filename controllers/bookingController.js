@@ -21,7 +21,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     payment_method_types: ['card'],
 
     // Success and cancel URLs
-    success_url: `${req.protocol}://${req.get('host')}/my-tours?alert=booking`,
+    success_url: `${req.protocol}://${req.get('host')}/my-Bookings`,
     cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
 
     // Customer info
@@ -72,7 +72,7 @@ const createBookingCheckout = async session => {
   await Booking.create({ tour, user, price });
 };
 
-// stripe Webhook handler 
+// stripe Webhook handler
 exports.webhookCheckout = (req, res, next) => {
   const signature = req.headers['stripe-signature'];
 

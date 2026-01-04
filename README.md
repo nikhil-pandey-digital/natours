@@ -1,6 +1,6 @@
 
-## NATOURS
-Natours is an modern web application that provides a platform for nature lovers and adventure travelers to buy and sell nature-based adventure tours.  Natours makes it easy to browse, book, and manage tours with ease. The application allows users to create accounts, login, and sign up for tours, make secure payments, upload files, and change passwords. Natours is the ultimate destination for those seeking exciting and unforgettable outdoor experiences.
+## Adventour
+Adventour is an modern web application that provides a platform for nature lovers and adventure travelers to buy and sell nature-based adventure tours.  Adventour makes it easy to browse, book, and manage tours with ease. The application allows users to create accounts, login, and sign up for tours, make secure payments, upload files, and change passwords. Adventour is the ultimate destination for those seeking exciting and unforgettable outdoor experiences.
 ## Deployed links
 
 [live project](https://naturetours-zckq.onrender.com/)
