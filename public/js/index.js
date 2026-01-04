@@ -11,7 +11,6 @@ const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
 const signupForm = document.querySelector('.form--signup');
 
-console.log(signupForm);
 
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
@@ -42,7 +41,6 @@ if (signupForm) {
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
 
-    console.log(name, email, password, passwordConfirm);
 
     signup(name, email, password, passwordConfirm);
   });
