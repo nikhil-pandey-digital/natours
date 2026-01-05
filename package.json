@@ -7,8 +7,8 @@
     "dev": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js",
     "debug": "ndb server.js",
-    "watch:js": "parcel watch ./public/js/index.js --target default --dist-dir ./public/js/bundled --public-url /js/bundled",
-    "build:js": "parcel build ./public/js/index.js --target default  --dist-dir ./public/js/bundled --public-url /js/bundled --no-source-maps"
+    "watch:js": "npx parcel watch ./public/js/index.js --target default --dist-dir ./public/js/bundled --public-url /js/bundled",
+    "build:js": "npx parcel build ./public/js/index.js --target default  --dist-dir ./public/js/bundled --public-url /js/bundled --no-source-maps"
   },
   "author": "Nikhil Pandey",
   "license": "ISC",
