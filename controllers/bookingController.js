@@ -63,17 +63,40 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   });
 });
 
-// Create booking after successful payment (called by webhook)
+// Create booking after successful payment (called by webhook), must be Idempotent
 const createBookingCheckout = async session => {
+  if (
+    !session.metadata?.tourId ||
+    !session.metadata?.userId ||
+    !session.amount_total ||
+    !session.id
+  ) {
+    throw new AppError('Required booking data missing from session', 400);
+  }
+
   const tour = session.metadata.tourId;
   const user = session.metadata.userId;
   const price = session.amount_total / 100; // Convert from cents
 
-  await Booking.create({ tour, user, price });
+  const existingBooking = await Booking.findOne({
+    stripeSessionId: session.id
+  });
+
+  if (existingBooking) {
+    return existingBooking;
+  }
+
+  const booking = await Booking.create({
+    tour,
+    user,
+    price,
+    stripeSessionId: session.id
+  });
+  return booking;
 };
 
 // stripe Webhook handler
-exports.webhookCheckout = (req, res, next) => {
+exports.webhookCheckout = async (req, res, next) => {
   const signature = req.headers['stripe-signature'];
 
   let event;
@@ -86,13 +109,24 @@ exports.webhookCheckout = (req, res, next) => {
   } catch (err) {
     return res.status(400).send(`Webhook error: ${err.message}`);
   }
-
   // Handle the checkout.session.completed event
   if (event.type === 'checkout.session.completed') {
-    createBookingCheckout(event.data.object);
+    try {
+      await createBookingCheckout(event.data.object);
+      return res.status(200).json({ received: true });
+    } catch (error) {
+      console.log('error while booking creation ', error);
+
+      if (error.statusCode === 400 || error.name === 'ValidationError') {
+        return res.status(400).json({ error: error.message });
+      }
+      return res.status(500).json({
+        error: error.message || 'Internal Server Error'
+      });
+    }
   }
 
-  res.status(200).json({ received: true });
+  return res.status(200).json({ received: true });
 };
 
 // CRUD operations
